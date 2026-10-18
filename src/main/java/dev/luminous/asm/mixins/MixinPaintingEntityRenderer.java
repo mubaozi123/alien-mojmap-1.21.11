@@ -1,0 +1,32 @@
+package dev.luminous.asm.mixins;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import dev.luminous.mod.modules.impl.render.NoRender;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.entity.PaintingRenderer;
+import net.minecraft.client.renderer.entity.state.PaintingRenderState;
+import net.minecraft.client.renderer.state.CameraRenderState;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Mixin(PaintingRenderer.class)
+public class MixinPaintingEntityRenderer {
+   @Inject(
+      at = @At("HEAD"),
+      method = "submit(Lnet/minecraft/client/renderer/entity/state/PaintingRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/CameraRenderState;)V",
+      cancellable = true
+   )
+   public void render(
+      PaintingRenderState paintingEntityRenderState,
+      PoseStack matrixStack,
+      SubmitNodeCollector orderedRenderCommandQueue,
+      CameraRenderState cameraRenderState,
+      CallbackInfo ci
+   ) {
+      if (NoRender.INSTANCE.isOn() && NoRender.INSTANCE.lightsUpdate.getValue()) {
+         ci.cancel();
+      }
+   }
+}

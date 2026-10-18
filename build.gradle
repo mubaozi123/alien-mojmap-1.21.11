@@ -1,0 +1,19 @@
+plugins {
+ id 'net.fabricmc.fabric-loom-remap' version '1.17.21'
+ id 'maven-publish'
+}
+version = '1.21.11+mojmap-rebuilt'
+group = 'dev.luminous'
+base { archivesName = 'alien' }
+repositories { mavenCentral(); maven { url = 'https://api.modrinth.com/maven' } }
+dependencies {
+ minecraft 'com.mojang:minecraft:1.21.11'
+ mappings loom.officialMojangMappings()
+ modImplementation 'net.fabricmc:fabric-loader:0.19.3'
+ modImplementation files('libs/baritone-api-fabric-1.17.0.jar')
+ modImplementation files('libs/sodium-fabric-0.8.14+mc1.21.11.jar')
+ modImplementation 'net.fabricmc.fabric-api:fabric-api:0.141.4+1.21.11'
+}
+loom { accessWidenerPath = file('src/main/resources/alien.accesswidener') }
+java { toolchain.languageVersion = JavaLanguageVersion.of(21); withSourcesJar() }
+tasks.withType(JavaCompile).configureEach { options.release = 21; options.encoding = 'UTF-8'; options.compilerArgs += ['-Xmaxerrs', '1000'] }

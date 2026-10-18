@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "alien",
+  "version": "1.21.11+mojmap-rebuilt",
+  "name": "Alien",
+  "description": "Alien client",
+  "authors": [
+    "NRC4"
+  ],
+  "accessWidener": "alien.accesswidener",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.luminous.Alien"
+    ]
+  },
+  "mixins": [
+    "alien.mixins.json",
+    {
+      "config": "alien.sodium.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "1.21.11",
+    "java": ">=21"
+  },
+  "suggests": {
+    "another-mod": "*",
+    "baritone": "1.17.0",
+    "sodium": "0.8.14+mc1.21.11"
+  }
+}

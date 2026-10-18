@@ -1,0 +1,19 @@
+accessWidener	v1	named
+accessible	field	net/minecraft/world/entity/LivingEntity	noJumpDelay	I
+accessible	field	net/minecraft/client/Minecraft	rightClickDelay	I
+accessible	field	net/minecraft/core/Direction	BY_2D_DATA	[Lnet/minecraft/core/Direction;
+accessible	field	net/minecraft/world/entity/WalkAnimationState	position	F
+accessible	field	net/minecraft/world/level/block/state/BlockBehaviour$BlockStateBase	cache	Lnet/minecraft/world/level/block/state/BlockBehaviour$BlockStateBase$Cache;
+accessible	field	net/minecraft/world/level/block/state/BlockBehaviour$BlockStateBase$Cache	isCollisionShapeFullBlock	Z
+accessible	field	net/minecraft/world/level/chunk/PalettedContainer	data	Lnet/minecraft/world/level/chunk/PalettedContainer$Data;
+accessible	method	net/minecraft/world/level/chunk/PalettedContainer$Data	palette	()Lnet/minecraft/world/level/chunk/Palette;
+accessible	method	net/minecraft/world/entity/LivingEntity	checkTotemDeathProtection	(Lnet/minecraft/world/damagesource/DamageSource;)Z
+accessible	method	net/minecraft/client/renderer/GameRenderer	renderItemInHand	(FZLorg/joml/Matrix4f;)V
+accessible	field	net/minecraft/world/entity/player/Inventory	selected	I
+accessible	field	net/minecraft/world/level/Level	isClientSide	Z
+accessible	method	net/minecraft/client/multiplayer/ClientLevel	getSkyFlashTime	()I
+accessible	method	net/minecraft/client/multiplayer/ClientLevel	getBlockStatePredictionHandler	()Lnet/minecraft/client/multiplayer/prediction/BlockStatePredictionHandler;
+accessible	method	net/minecraft/network/protocol/game/ServerboundInteractPacket	write	(Lnet/minecraft/network/FriendlyByteBuf;)V
+accessible	class	net/minecraft/network/protocol/game/ServerboundInteractPacket$ActionType
+accessible	class	net/minecraft/network/protocol/game/ServerboundInteractPacket$Action
+accessible	field	net/minecraft/network/protocol/game/ServerboundInteractPacket	action	Lnet/minecraft/network/protocol/game/ServerboundInteractPacket$Action;
