@@ -1,6 +1,7 @@
 package dev.luminous.mod.modules.impl.movement;
 
 import dev.luminous.Alien;
+import dev.luminous.asm.accessors.ISetEntityMotionPacket;
 import dev.luminous.api.events.eventbus.EventListener;
 import dev.luminous.api.events.impl.EntityVelocityUpdateEvent;
 import dev.luminous.api.events.impl.PacketEvent;
@@ -19,10 +20,12 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.AxisDirection;
 import net.minecraft.network.protocol.game.ClientboundEntityEventPacket;
 import net.minecraft.network.protocol.game.ClientboundPlayerPositionPacket;
+import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.network.protocol.game.ServerboundPlayerActionPacket;
 import net.minecraft.network.protocol.game.ServerboundMovePlayerPacket.PosRot;
 import net.minecraft.network.protocol.game.ServerboundPlayerActionPacket.Action;
 import net.minecraft.world.entity.projectile.FishingHook;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 
@@ -149,6 +152,17 @@ public class Velocity extends Module {
 
    @EventListener
    public void onReceivePacket(PacketEvent.Receive event) {
+      if (!nullCheck() && event.getPacket() instanceof ClientboundSetEntityMotionPacket motion && motion.getId() == mc.player.getId()) {
+         Vec3 movement = motion.getMovement();
+         EntityVelocityUpdateEvent velocityEvent = EntityVelocityUpdateEvent.get(mc.player, movement.x, movement.y, movement.z, false);
+         Alien.EVENT_BUS.post(velocityEvent);
+         if (velocityEvent.isCancelled()) {
+            event.cancel();
+         } else if (velocityEvent.getX() != movement.x || velocityEvent.getY() != movement.y || velocityEvent.getZ() != movement.z) {
+            ((ISetEntityMotionPacket)motion).setMovement(new Vec3(velocityEvent.getX(), velocityEvent.getY(), velocityEvent.getZ()));
+         }
+      }
+
       if (event.getPacket() instanceof ClientboundPlayerPositionPacket
          && (!this.ignorePearlLag.getValue() || this.pearlTimer.passed(this.phaseTime.getValueInt()))) {
          this.lagBackTimer.reset();

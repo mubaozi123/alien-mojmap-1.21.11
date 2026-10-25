@@ -16,7 +16,6 @@ import dev.luminous.mod.modules.impl.client.ClientSetting;
 import dev.luminous.mod.modules.impl.client.ColorsModule;
 import dev.luminous.mod.modules.impl.client.Fonts;
 import dev.luminous.mod.modules.impl.client.HUD;
-import dev.luminous.mod.modules.impl.client.IRC;
 import dev.luminous.mod.modules.impl.client.ItemsCounter;
 import dev.luminous.mod.modules.impl.client.TextRadar;
 import dev.luminous.mod.modules.impl.combat.AntiCrawl;
@@ -219,7 +218,6 @@ public class ModuleManager implements Wrapper {
       this.addModule(new AntiPhase());
       this.addModule(new Clip());
       this.addModule(new AntiCheat());
-      this.addModule(new IRC());
       this.addModule(new ItemsCounter());
       this.addModule(new Fov());
       this.addModule(new Criticals());

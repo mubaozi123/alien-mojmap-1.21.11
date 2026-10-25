@@ -136,19 +136,6 @@ public abstract class MixinClientPlayNetworkHandler extends ClientCommonPacketLi
       }
    }
 
-   @Redirect(
-      method = "handleSetEntityMotion",
-      at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;lerpMotion(Lnet/minecraft/world/phys/Vec3;)V"),
-      require = 0
-   )
-   private void velocityHook(Entity instance, Vec3 velocity) {
-      EntityVelocityUpdateEvent event = EntityVelocityUpdateEvent.get(instance, velocity.x, velocity.y, velocity.z, false);
-      Alien.EVENT_BUS.post(event);
-      if (!event.isCancelled()) {
-         instance.lerpMotion(new Vec3(event.getX(), event.getY(), event.getZ()));
-      }
-   }
-
    @Inject(method = "handleExplosion", at = @At("HEAD"))
    private void velocityHook2(ClientboundExplodePacket packet, CallbackInfo ci) {
       packet.playerKnockback().ifPresent(vec3d -> {
